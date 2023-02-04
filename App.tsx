@@ -7,13 +7,12 @@
  */
 
 import React from 'react';
-import {SafeAreaView} from 'react-native';
-
+import {SafeAreaView, Platform} from 'react-native';
 import notifee from '@notifee/react-native';
 import {WebView} from 'react-native-webview';
 
 function App(): JSX.Element {
-  async function onDisplayNotification() {
+  async function openTimer() {
     // Request permissions (required for iOS)
     await notifee.requestPermission();
 
@@ -43,10 +42,24 @@ function App(): JSX.Element {
   return (
     <SafeAreaView style={{flex: 1}}>
       <WebView
+        userAgent={
+          Platform.OS === 'android'
+            ? 'Chrome/18.0.1025.133 Mobile Safari/535.19'
+            : 'AppleWebKit/602.1.50 (KHTML, like Gecko) CriOS/56.0.2924.75'
+        }
         source={{uri: 'http://172.30.1.100:2001'}}
+        // source={{uri: 'https://juni.vercel.app/'}}
+        sharedCookiesEnabled
+        domStorageEnabled
         onError={syntheticEvent => {
           const {nativeEvent} = syntheticEvent;
           console.warn('WebView error: ', nativeEvent);
+        }}
+        onMessage={event => {
+          console.log('@@event', event.nativeEvent.data);
+          if (event.nativeEvent.data === 'openTimer') {
+            openTimer();
+          }
         }}
       />
     </SafeAreaView>

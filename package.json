@@ -8,7 +8,8 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "pod": "cd ios && pod install && cd .."
+    "pod": "cd ios && pod install && cd ..",
+    "my-device": "adb -s R3CR3139MRE reverse tcp:8081 tcp:8081"
   },
   "dependencies": {
     "@notifee/react-native": "^7.4.0",
