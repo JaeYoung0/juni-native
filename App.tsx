@@ -12,7 +12,16 @@ export default function App(): JSX.Element {
   );
 }
 
-const RootStack = createStackNavigator();
+export type RootStackParamList = {
+  Timer: undefined;
+  MyWebview: {
+    timer?: {
+      startTime: string; // dayjs().utc().format()
+      endTime: string; // dayjs().utc().format()
+    };
+  };
+};
+const RootStack = createStackNavigator<RootStackParamList>();
 function MyStack() {
   return (
     <>

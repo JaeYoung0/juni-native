@@ -1,6 +1,12 @@
 import React, {useState, useRef} from 'react';
 import {SafeAreaView, Text, TouchableOpacity} from 'react-native';
 import notifee from '@notifee/react-native';
+import {StackScreenProps} from '@react-navigation/stack';
+import {RootStackParamList} from '../../../App';
+import dayjs from 'dayjs';
+
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(utc);
 
 const intervalTimer = (update: (time: number) => void, interval = 1000) => {
   let counter = 1;
@@ -22,8 +28,9 @@ const intervalTimer = (update: (time: number) => void, interval = 1000) => {
 
   return () => clearTimeout(timeoutId);
 };
+type Props = StackScreenProps<RootStackParamList, 'Timer'>;
 
-function Timer() {
+function Timer({navigation}: Props) {
   const [elapsedTime, setElapsedTime] = useState(0);
   const notificationIdRef = useRef<string>('');
 
@@ -64,12 +71,19 @@ function Timer() {
 
   const stopTimer = async () => {
     timerController.current.clear();
-    setElapsedTime(0);
 
     // notification 종료
     await notifee.cancelNotification(notificationIdRef.current);
 
     // 웹뷰에 elaspedTime 전달
+    navigation.navigate('MyWebview', {
+      timer: {
+        startTime: dayjs().subtract(elapsedTime, 'millisecond').utc().format(),
+        endTime: dayjs().utc().format(),
+      },
+    });
+
+    setElapsedTime(0);
   };
   const seconds = elapsedTime / 1000;
   const ss = Math.floor(seconds % 60);
@@ -78,9 +92,9 @@ function Timer() {
   const format = (n: number) => n.toString().padStart(2, '0');
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#000'}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
       <TouchableOpacity onPress={startTimer}>
-        <Text>시작</Text>
+        <Text style={{color: '#000'}}>시작</Text>
       </TouchableOpacity>
 
       <Text>{`${format(hh)} : ${format(mm)} : ${format(ss)}`}</Text>

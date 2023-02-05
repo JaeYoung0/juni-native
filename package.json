@@ -15,6 +15,7 @@
     "@notifee/react-native": "^7.4.0",
     "@react-navigation/native": "^6.1.3",
     "@react-navigation/stack": "^6.3.12",
+    "dayjs": "^1.11.7",
     "react": "18.2.0",
     "react-native": "0.71.2",
     "react-native-gesture-handler": "^2.9.0",

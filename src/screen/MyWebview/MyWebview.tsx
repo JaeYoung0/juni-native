@@ -1,24 +1,35 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import {WebView} from 'react-native-webview';
 import {SafeAreaView, Platform} from 'react-native';
-import {useNavigation, NavigationProp} from '@react-navigation/core';
+import {StackScreenProps} from '@react-navigation/stack';
+import {RootStackParamList} from '../../../App';
+import {WebviewBridge} from '../../bridge';
 
-type ScreenParamList = {
-  Timer: {};
-};
-
-function MyWebview() {
-  const navigation = useNavigation<NavigationProp<ScreenParamList>>();
-
+type Props = StackScreenProps<RootStackParamList, 'MyWebview'>;
+function MyWebview({navigation, route}: Props) {
   async function openTimer() {
-    navigation.navigate('Timer', {});
+    navigation.navigate('Timer');
   }
 
-  // 시간 측정하고 웹뷰로 넘기기
+  const webviewRef = useRef<WebView | null>(null);
+  const params = route.params;
+
+  useEffect(() => {
+    if (!webviewRef.current) return;
+    if (!params) return;
+
+    const bridge = new WebviewBridge(webviewRef.current);
+
+    if (params.timer) {
+      const {startTime, endTime} = params.timer;
+      return bridge.postTimerResult(startTime, endTime);
+    }
+  }, [params]);
 
   return (
     <SafeAreaView style={{flex: 1}}>
       <WebView
+        ref={webviewRef}
         userAgent={
           Platform.OS === 'android'
             ? 'Chrome/18.0.1025.133 Mobile Safari/535.19'
