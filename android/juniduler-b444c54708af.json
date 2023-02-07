@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "juniduler",
+  "private_key_id": "b444c54708afac4c779712f1593d576fb8e8b482",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCG37+EBEmAzDRW\nIGyMYF1XhVTvef/sDpay4K8oXzUMbwBFz9hu2UtNBJkloEh0pUCb9HhE2JVSOgMk\nmWb6uIc3Ah9d1eEJvrTet9L0c0RrLV8mpHpzWjYoD5EraQwNaLjbsMW0TI6f/7mT\npwoKLhLXXWaRmbeOjXAnlGFOVh3u0NlYWpT0Odo/KdbgS0o5noyvSA0+psgieSyJ\n3lJIpzyIbtdpQBfy9r5FPWsp2hnMss2rJuTEwVq7JxBtJh54ldAlT1wtu6UUvmtr\nQ2E/5fJup71JyNNSRlywcNl51vfHWH42PwKPQzy5AqxdCOxAQ4MlOX8+/hB7hO+Z\nVz5faVQRAgMBAAECggEABBbWlKcYn2oRkCbtg5gMXHHzcEtPohWTJhs/1EaGsjjP\nVk6F7l5yNQSVrBle+QJlohTYbKXwaQzPOZXZFHLxzo4m605nw0bf7vy9zaGNCn7W\nqrJD8CllCPPn39wQfHuXVznV1LCZhmpXcw2WdVaORa9UQ8fYU98f7mNGS/y6bZom\nKE7fDhr/X8/BgrYHXOVB5ii0GFsoIh46/Z+CpaS8SmpJI02YFDhdnD46thdfJZne\n9LZW6DauaKp1phySnDtGsZtnRy9Ip3xyxYmTsX4u2MFO0Hvk2zZGGqoZWw3olIrc\nzaLe9DHhftHWq03UXu1Kx4YpGqngOlXmDDPP9Qbh0QKBgQC6J+eJ5/VdnC1PjXfP\nyPWceRVIGe8t3vcj6tN1n3S8YDkexh4+Nq19j9TYB2LzuixYvWXGwE9srSMZAWrF\nk0iifDuQBI4DT8gCNsp3qggwUcd0BYR3EVNwnVgF+7F75NzFJJrb2ewdzLcJwUrA\nrE3uNFdUrkoLitd1jJzMp0iurQKBgQC5ekUAW37q0TjpcACw0bkyxFtzMfR6yr2K\n5RDA8OkSXj9QEv9m1iAL74jrN9d9Coj2NNWmxX8etehaz0tsYBkjPVtRLJWf3dCg\n3VVS1iwMM8oNg05dqEKAws4ZC5Nt6YMmpTO6mvMuzwGemJYkx+yZ3Eb3DYyb6Q9Y\nBgv6TsJbdQKBgHnGFtGAmmKFAqLyoPictgaIsqI6zNpN649kUrWz/JIpw9Pct/Xs\noKrthsdWdaWIGPBn3QcZ0BsAW2BFLApY4X/hErmQMTH7Y5QHMYT8BmVNadL8tP2K\nqPGXC/jGAAFS4hRYcLD2ql2ICAhqmDLXxBbZyHMNnERWq8EqnXvGxmX1AoGAZCtW\njKTdXG/2Loxgsx3wySwmv4XhJVfNGfAwJiN1nIft5Y79BErsL8YDyhT0egFwipdq\nM5FB4BIaFMETWMpliRSf9qz/ecFP5TDj3cLxMv3dR4L8lbRDhkqvB/OqgZe1Tu+1\nijgY0dTWaRK7M84NR+MhKFfW8nTh5oYNffd/G+kCgYB9dVU4bzce5hW41+mzqk5o\nQk1AsNiykSX5JoxD+OwUnTHwdW0E9NCnN7dFmT6ltxf8bCdZ/dd3ORJ9MQTUpeXG\nGQH4GiwPvyzvqqYKTy2+vqEbGYfUjuZt9AnrwM3hPVNtFridWsfWcOavFkZnp6rj\nDFIybe+Zdcid9ezFcy+pWQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "fastlane-deploy-2@juniduler.iam.gserviceaccount.com",
+  "client_id": "100758675693264429295",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/fastlane-deploy-2%40juniduler.iam.gserviceaccount.com"
+}
