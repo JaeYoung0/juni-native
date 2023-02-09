@@ -9,7 +9,8 @@
     "start": "react-native start",
     "test": "jest",
     "pod": "cd ios && pod install && cd ..",
-    "my-device": "adb -s R3CR3139MRE reverse tcp:8081 tcp:8081"
+    "my-device": "adb -s R3CR3139MRE reverse tcp:8081 tcp:8081",
+    "apk": "cd android && ./gradlew assembleRelease && cd .."
   },
   "dependencies": {
     "@notifee/react-native": "^7.4.0",
