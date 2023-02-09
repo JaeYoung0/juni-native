@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react';
-import {SafeAreaView, Text, TouchableOpacity} from 'react-native';
+import {SafeAreaView, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import notifee from '@notifee/react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../../../App';
@@ -92,18 +92,49 @@ function Timer({navigation}: Props) {
   const format = (n: number) => n.toString().padStart(2, '0');
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
-      <TouchableOpacity onPress={startTimer}>
-        <Text style={{color: '#000'}}>시작</Text>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.timer}>{`${format(hh)} : ${format(mm)} : ${format(
+        ss,
+      )}`}</Text>
+
+      <TouchableOpacity
+        onPress={() => {
+          navigation.goBack();
+        }}>
+        <Text style={styles.buttonText}>뒤로</Text>
       </TouchableOpacity>
 
-      <Text>{`${format(hh)} : ${format(mm)} : ${format(ss)}`}</Text>
+      <TouchableOpacity onPress={startTimer}>
+        <Text style={styles.buttonText}>시작</Text>
+      </TouchableOpacity>
 
-      <TouchableOpacity onPress={stopTimer}>
-        <Text>종료</Text>
+      <TouchableOpacity onPress={stopTimer} style={{backgroundColor: '#fff'}}>
+        <Text style={styles.stopButton}>종료</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  buttonText: {
+    color: '#000',
+    fontSize: 20,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+
+  stopButton: {color: '#000', fontSize: 20, textAlign: 'center'},
+  timer: {
+    color: '#fff',
+    fontSize: 40,
+    textAlign: 'center',
+    backgroundColor: '#262255',
+    marginBottom: 20,
+  },
+});
 
 export default Timer;
