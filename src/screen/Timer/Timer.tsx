@@ -4,7 +4,6 @@ import notifee from '@notifee/react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../../../App';
 import dayjs from 'dayjs';
-
 import utc from 'dayjs/plugin/utc';
 dayjs.extend(utc);
 
@@ -97,20 +96,24 @@ function Timer({navigation}: Props) {
         ss,
       )}`}</Text>
 
-      <TouchableOpacity
-        onPress={() => {
-          navigation.goBack();
-        }}>
-        <Text style={styles.buttonText}>뒤로</Text>
-      </TouchableOpacity>
+      {elapsedTime === 0 && (
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}>
+          <Text style={styles.buttonText}>뒤로</Text>
+        </TouchableOpacity>
+      )}
 
-      <TouchableOpacity onPress={startTimer}>
-        <Text style={styles.buttonText}>시작</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={stopTimer} style={{backgroundColor: '#fff'}}>
-        <Text style={styles.stopButton}>종료</Text>
-      </TouchableOpacity>
+      {elapsedTime === 0 ? (
+        <TouchableOpacity onPress={startTimer}>
+          <Text style={styles.buttonText}>시작</Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity onPress={stopTimer} style={{backgroundColor: '#fff'}}>
+          <Text style={styles.stopButton}>종료</Text>
+        </TouchableOpacity>
+      )}
     </SafeAreaView>
   );
 }
