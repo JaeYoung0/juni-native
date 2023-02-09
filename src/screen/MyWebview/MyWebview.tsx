@@ -18,25 +18,25 @@ function MyWebview({navigation, route}: Props) {
     if (!webviewRef.current) return;
     if (!params) return;
 
-    const bridge = new WebviewBridge(webviewRef.current);
-
     if (params.timer) {
       const {startTime, endTime} = params.timer;
-      return bridge.postTimerResult(startTime, endTime);
+      const bridge = new WebviewBridge(webviewRef.current);
+      bridge.openCreatePracticeDialog(startTime, endTime);
     }
-  }, [params]);
+  }, [params, webviewRef]);
 
   return (
     <SafeAreaView style={{flex: 1}}>
       <WebView
         ref={webviewRef}
+        injectedJavaScriptBeforeContentLoaded={`window.isJuniNative = true`}
         userAgent={
           Platform.OS === 'android'
             ? 'Chrome/18.0.1025.133 Mobile Safari/535.19'
             : 'AppleWebKit/602.1.50 (KHTML, like Gecko) CriOS/56.0.2924.75'
         }
-        // source={{uri: 'http://172.30.1.100:2001'}}
-        source={{uri: 'https://juni.vercel.app/'}}
+        source={{uri: 'http://172.30.1.100:2001'}}
+        // source={{uri: 'https://juni.vercel.app/'}}
         sharedCookiesEnabled
         domStorageEnabled
         onError={syntheticEvent => {

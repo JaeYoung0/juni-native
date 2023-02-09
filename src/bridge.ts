@@ -7,16 +7,12 @@ export class WebviewBridge {
     this.webview = webview;
   }
 
-  postTimerResult = (startTime: string, endTime: string) => {
-    this.webview.postMessage(
-      JSON.stringify({
-        from: 'JuniNative',
-        method: 'postTimerResult',
-        payload: {
-          startTime,
-          endTime,
-        },
-      }),
-    );
+  openCreatePracticeDialog = (startTime: string, endTime: string) => {
+    this.webview.injectJavaScript(`
+    window.postMessage({
+      type: '@open/CreatePracticeDialog',
+      payload:${JSON.stringify({startTime, endTime})}
+    })
+    `);
   };
 }
