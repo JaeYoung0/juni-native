@@ -1,35 +1,45 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {WebView} from 'react-native-webview';
 import {SafeAreaView, Platform} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../../../App';
-import {WebviewBridge} from '../../bridge';
+import useWebviewBridge from '../../bridge';
 
 type Props = StackScreenProps<RootStackParamList, 'MyWebview'>;
-function MyWebview({navigation, route}: Props) {
-  async function openTimer() {
-    navigation.navigate('Timer');
-  }
+function MyWebview({route}: Props) {
+  const [webview, setWebview] = useState<WebView | null>(null);
 
-  const webviewRef = useRef<WebView | null>(null);
+  const webviewRef = useCallback(
+    (el: WebView) => {
+      if (!el) return;
+      if (webview) return;
+
+      setWebview(el);
+    },
+    [webview],
+  );
+
   const params = route.params;
 
+  const {openCreatePracticeDialog, handleWebviewMessage, handleWebviewError} =
+    useWebviewBridge(webview);
+
   useEffect(() => {
-    if (!webviewRef.current) return;
+    if (!webview) return;
     if (!params) return;
 
     if (params.timer) {
       const {startTime, endTime} = params.timer;
-      const bridge = new WebviewBridge(webviewRef.current);
-      bridge.openCreatePracticeDialog(startTime, endTime);
+      openCreatePracticeDialog(startTime, endTime);
     }
-  }, [params, webviewRef]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [webview, params]);
 
   return (
     <SafeAreaView style={{flex: 1}}>
       <WebView
         ref={webviewRef}
-        injectedJavaScriptBeforeContentLoaded={`window.isJuniNative = true`}
+        injectedJavaScriptBeforeContentLoaded={'window.isJuniNative = true'}
         userAgent={
           Platform.OS === 'android'
             ? 'Chrome/18.0.1025.133 Mobile Safari/535.19'
@@ -39,16 +49,8 @@ function MyWebview({navigation, route}: Props) {
         // source={{uri: 'https://juni.vercel.app/'}}
         sharedCookiesEnabled
         domStorageEnabled
-        onError={syntheticEvent => {
-          const {nativeEvent} = syntheticEvent;
-          console.warn('WebView error: ', nativeEvent);
-        }}
-        onMessage={event => {
-          console.log('@@event', event.nativeEvent.data);
-          if (event.nativeEvent.data === 'openTimer') {
-            openTimer();
-          }
-        }}
+        onError={handleWebviewError}
+        onMessage={handleWebviewMessage}
       />
     </SafeAreaView>
   );
