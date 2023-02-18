@@ -1,44 +1,26 @@
 import React, {useState, useRef} from 'react';
-import {SafeAreaView, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {SafeAreaView, Text, TouchableOpacity} from 'react-native';
 import notifee from '@notifee/react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../../../App';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
+import BackgroundTimer from 'react-native-background-timer';
+import styles from './style';
+
 dayjs.extend(utc);
 
-const intervalTimer = (update: (time: number) => void, interval = 1000) => {
-  let counter = 1;
-  let timeoutId = 0;
-  const startTime = Date.now();
-
-  function main() {
-    const mainThreadTime = Date.now(); // 이벤트루프 다녀오고나서 콜스택에 올라오고 실제로 실행된 시각
-    const nextTime = startTime + counter * interval; // 오차없이 실행되어야할 시각
-    const deviation = mainThreadTime - nextTime; // 이벤트루프 다녀오느라 걸린 시간
-    const compensatedInterval = interval - deviation; // 보정
-    timeoutId = setTimeout(main, compensatedInterval);
-
-    counter += 1;
-    update(mainThreadTime - startTime - deviation);
-  }
-
-  setTimeout(main, interval);
-
-  return () => clearTimeout(timeoutId);
-};
 type Props = StackScreenProps<RootStackParamList, 'Timer'>;
 
 function Timer({navigation}: Props) {
   const [elapsedTime, setElapsedTime] = useState(0);
+
   const notificationIdRef = useRef<string>('');
 
-  const timerController = useRef<{clear: () => void}>({
-    clear: () => 0,
-  });
-
   async function startTimer() {
-    timerController.current.clear = intervalTimer(time => setElapsedTime(time));
+    BackgroundTimer.runBackgroundTimer(() => {
+      setElapsedTime(prev => prev + 1000);
+    }, 1000);
 
     // Request permissions (required for iOS)
     await notifee.requestPermission();
@@ -69,7 +51,7 @@ function Timer({navigation}: Props) {
   }
 
   const stopTimer = async () => {
-    timerController.current.clear();
+    BackgroundTimer.stopBackgroundTimer();
 
     // notification 종료
     await notifee.cancelNotification(notificationIdRef.current);
@@ -117,27 +99,5 @@ function Timer({navigation}: Props) {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  buttonText: {
-    color: '#000',
-    fontSize: 20,
-    textAlign: 'center',
-    marginBottom: 20,
-  },
-
-  stopButton: {color: '#000', fontSize: 20, textAlign: 'center'},
-  timer: {
-    color: '#fff',
-    fontSize: 40,
-    textAlign: 'center',
-    backgroundColor: '#262255',
-    marginBottom: 20,
-  },
-});
 
 export default Timer;
