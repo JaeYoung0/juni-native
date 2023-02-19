@@ -43,21 +43,21 @@ platform :android do
 
   lane :increment_version do
     latest_release = firebase_app_distribution_get_latest_release(
-      app: "<your Firebase app ID>"
+      app: "1:667236950681:android:f8ce0e72b0f590d4d20e08"
     )
     increment_version_code({ version_code: latest_release[:buildVersion].to_i + 1 })
   end
 
   lane :distribute do
       build_android_app(
-      task: "assemble",
+      task: "bundle",
       build_type: "Release"
       )
 
       firebase_app_distribution(
           app: "1:667236950681:android:f8ce0e72b0f590d4d20e08",
           service_credentials_file: "./juniduler-b444c54708af.json",
-          testers: "hjy8697@gmail.com",
+          testers: "hjy8697@gmail.com, noboundarya@gmail.com",
           release_notes: "Lots of amazing new features to test out!",
           android_artifact_type: "AAB"
       )

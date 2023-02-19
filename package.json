@@ -10,7 +10,10 @@
     "test": "jest",
     "pod": "cd ios && pod install && cd ..",
     "my-device": "adb -s R3CR3139MRE reverse tcp:8081 tcp:8081",
-    "apk": "cd android && ./gradlew assembleRelease && cd .."
+    "apk": "cd android && ./gradlew assembleRelease && cd ..",
+    "clean:android": "cd android && ./gradlew clean && cd ..",
+    "aab:android": "cd android && ./gradlew clean && ./gradlew bundleRelease && cd ..",
+    "distribute:android": "cd android && ./gradlew clean && cd fastlane && fastlane distribute && cd ../../"
   },
   "dependencies": {
     "@notifee/react-native": "^7.4.0",
