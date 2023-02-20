@@ -13,13 +13,16 @@ dayjs.extend(utc);
 type Props = StackScreenProps<RootStackParamList, 'Timer'>;
 
 function Timer({navigation}: Props) {
-  const [elapsedTime, setElapsedTime] = useState(0);
+  const [currentTime, setCurrentTime] = useState(dayjs().unix());
+  const startTimeRef = useRef(dayjs().unix());
 
   const notificationIdRef = useRef<string>('');
 
   async function startTimer() {
+    startTimeRef.current = dayjs().unix();
     BackgroundTimer.runBackgroundTimer(() => {
-      setElapsedTime(prev => prev + 1000);
+      // setElapsedTime(prev => prev + 1000);
+      setCurrentTime(dayjs().unix());
     }, 1000);
 
     // Request permissions (required for iOS)
@@ -64,8 +67,10 @@ function Timer({navigation}: Props) {
       },
     });
 
-    setElapsedTime(0);
+    setCurrentTime(dayjs().unix());
   };
+
+  const elapsedTime = (currentTime - startTimeRef.current) * 1000;
   const seconds = elapsedTime / 1000;
   const ss = Math.floor(seconds % 60);
   const mm = Math.floor((seconds % 3600) / 60);
