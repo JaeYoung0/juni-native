@@ -58,7 +58,7 @@ platform :android do
           app: "1:667236950681:android:f8ce0e72b0f590d4d20e08",
           service_credentials_file: "./juniduler-b444c54708af.json",
           testers: "hjy8697@gmail.com, noboundarya@gmail.com",
-          release_notes: "Lots of amazing new features to test out!",
+          release_notes: "release with fastlane",
           android_artifact_type: "AAB"
       )
   end

@@ -45,8 +45,8 @@ function MyWebview({route}: Props) {
             ? 'Chrome/18.0.1025.133 Mobile Safari/535.19'
             : 'AppleWebKit/602.1.50 (KHTML, like Gecko) CriOS/56.0.2924.75'
         }
-        source={{uri: 'http://172.30.1.100:2001'}}
-        // source={{uri: 'https://juni.vercel.app/'}}
+        // source={{uri: 'http://172.30.1.100:2001'}}
+        source={{uri: 'https://juni.vercel.app/'}}
         sharedCookiesEnabled
         domStorageEnabled
         onError={handleWebviewError}

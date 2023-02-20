@@ -21,7 +21,6 @@ function Timer({navigation}: Props) {
   async function startTimer() {
     startTimeRef.current = dayjs().unix();
     BackgroundTimer.runBackgroundTimer(() => {
-      // setElapsedTime(prev => prev + 1000);
       setCurrentTime(dayjs().unix());
     }, 1000);
 
