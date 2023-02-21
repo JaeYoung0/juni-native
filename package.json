@@ -13,7 +13,8 @@
     "apk": "cd android && ./gradlew assembleRelease && cd ..",
     "clean:android": "cd android && ./gradlew clean && cd ..",
     "aab:android": "cd android && ./gradlew clean && ./gradlew bundleRelease && cd ..",
-    "distribute:android": "cd android && ./gradlew clean && cd fastlane && fastlane distribute && cd ../../"
+    "distribute:android": "cd android && ./gradlew clean && cd fastlane && fastlane distribute && cd ../../",
+    "distribute:ios": "cd ios && cd fastlane && fastlane beta && cd ../../"
   },
   "dependencies": {
     "@notifee/react-native": "^7.4.0",

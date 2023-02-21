@@ -20,6 +20,8 @@ platform :ios do
   lane :beta do
     increment_build_number(xcodeproj: "JuniNative.xcodeproj")
     build_app(workspace: "JuniNative.xcworkspace", scheme: "JuniNative")
-    upload_to_testflight
+    upload_to_testflight(
+      api_key_path:"fastlane/key.json"
+    )
   end
 end
